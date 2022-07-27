@@ -9,11 +9,10 @@ Django<br/>
 SQLite<br/>
 Socket.IO<br/><br/>
 
-<h3>Steps to Install Application:</h3><br>
-1. Git Clone:
-
+<h3>Steps to Install Application:</h3>
+1. Install project dependencies:
 ```
-git clone https://github.com/sannidhi-kharvi/realtime-chat-application.git
+pip install -r requirements.txt
 ```
 <br/>
 
