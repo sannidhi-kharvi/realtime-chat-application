@@ -11,8 +11,6 @@ Socket.IO<br/><br/>
 
 <h3>Steps to Install Application:</h3>
 1. Git Clone:
-
-
 ```
 git clone https://github.com/sannidhi-kharvi/realtime-chat-application.git
 ```
