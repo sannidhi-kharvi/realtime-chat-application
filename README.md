@@ -9,9 +9,8 @@ Django<br/>
 SQLite<br/>
 Socket.IO<br/><br/>
 
-<h3>Steps to Install Application:</h3>
+<h3>Steps to Install Application:</h3><br>
 1. Git Clone:
-2. Install project dependencies:
 
 ```
 git clone https://github.com/sannidhi-kharvi/realtime-chat-application.git
