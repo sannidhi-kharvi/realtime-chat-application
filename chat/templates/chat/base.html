@@ -1,0 +1,27 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whatsapp</title>
+
+    <link rel="stylesheet" href="{% static 'chat/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/css/register.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    
+    <script src="{% static 'chat/js/emoji-button.min.js' %}"></script>
+    <script src="{% static 'chat/js/app.js' %}"></script>
+    <script src="{% static 'chat/js/fonts.js' %}"></script>
+    <script src="{% static 'chat/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

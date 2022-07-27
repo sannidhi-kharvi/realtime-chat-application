@@ -1,0 +1,17 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+<div class="container-fluid" id="main-container">
+    <div class="row h-100">
+        <!-- Chat List Area -->
+        {% include 'chat/contact_list_area.html' %}
+
+        <!-- Message Area -->
+        {% include 'chat/message_area.html' %}
+    </div>
+</div>
+
+<script src="{% static 'chat/js/socket.js' %}"></script>
+{% endblock %}

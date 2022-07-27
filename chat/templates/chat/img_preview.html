@@ -1,0 +1,44 @@
+
+    <div class="navbar row d-flex flex-row align-items-center p-2 m-0 w-100" style="background: #e6e6e6;height: 100%;">
+        <div class="nav-item mr-3">
+            <i class="far fa-times mx-4 my-1" style="font-size: 1.5rem; cursor: pointer; color: #51585c" onclick="closePreview()"></i>
+        </div>
+
+        <div class="nav-item mr-auto">
+            <div class="font-weight-bold" style="color: #51585c; font-size: 1.5em">Preview</div>
+        </div>
+    </div>
+
+    <div class="preview-body m-4">
+        <img class="preview-big-img" draggable="false" />
+    </div>
+
+    <div class="row justify-content-center p-2">
+        <div class="d-flex flex-row" style="width: 75%">
+            <button class="btn mr-2" id="emoji-trigger-img"><i class="far fa-grin-alt" style="font-size: 25px; color: #51585c" data-toggle="tooltip" title="Emoji"></i></button>
+            <input type="text" name="message" id="input-message" placeholder="Type a message" class="flex-grow-1 border-0 px-3 py-2 my-3" autocomplete="off" />
+            <button class="btn px-3 py-2 my-3 ml-2"><i class="fas fa-paper-plane mr-3" style="font-size: 25px; color: #51585c" data-toggle="tooltip" title="Send"></i></button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center p-2">
+        <div class="d-flex flex-row p-2 preview-footer"></div>
+
+        <div class="d-flex flex-row justify-content-center p-2">
+            
+            <div class="card" id="add-img-upload" style="cursor: pointer">
+                <input type="file" id="add-img-upload-file" style="position: absolute; top: -1000%" accept="image/*" />
+                <i class="far fa-plus" style="font-size: 1.5rem; justify-content: center; align-items: center"></i>
+            </div>
+        </div>
+    </div>
+
+<!-- <div class="navbar row d-flex flex-row align-items-center p-2 m-0 w-100" style="background: #e6e6e6;height: 100%;">
+    <div class="nav-item mr-3">
+        <i class="far fa-times mx-4 my-1" style="font-size: 1.5rem; cursor: pointer; color: #51585c" onclick="closePreview()"></i>
+    </div>
+
+    <div class="nav-item mr-auto">
+        <div class="font-weight-bold" style="color: #51585c; font-size: 1.5em">Preview</div>
+    </div>
+</div> -->

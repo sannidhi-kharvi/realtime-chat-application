@@ -1,0 +1,150 @@
+<!-- User Profile -->
+<div class="d-flex flex-column w-100 h-100" id="user-profile">
+    <div class="navbar row d-flex flex-row p-2" style="min-height: 110px">
+        <div class="nav-item">
+            <i class="far fa-arrow-left mx-4 my-1 text-white" style="font-size: 1.5rem; cursor: pointer" onclick="hideUserProfile()"></i>
+        </div>
+
+        <div class="nav-item mr-auto">
+            <div class="text-white font-weight-bold" style="font-size: 1.3em">Profile</div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column" style="overflow: auto">
+        <div class="profile-change">
+            <img src="{{ user.useradd.user_image.url }}" id="user-img-big" class="img-rounded rounded-circle my-4 justify-self-center mx-auto dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-offset="20,-150" />
+            <p data-toggle="dropdown" aria-expanded="false" data-offset="-5,-90">
+                <i class="far fa-camera mx-4 my-1" style="font-size: 1.5rem"></i><br />
+                CHANGE PROFILE PICTURE
+            </p>
+            <div id="profile-dropdown" class="dropdown-menu">
+                <a class="dropdown-item" href="#">View photo</a>
+                <a class="dropdown-item" id="user-img-upload" style="cursor: pointer">Upload photo</a>
+                <a class="dropdown-item" id="user-remove-photo" href="#">Remove photo</a>
+            </div>
+        </div>
+        <input type="file" id="user-img-upload-file" style="display: none" accept="image/*" />
+        <div class="px-3 py-2">
+            <div class="font-weight-bold" style="color: #00bfa5"><label>Profile Name</label></div>
+            <div class="input-add">
+                <input type="text" name="name" value="{{ user.useradd.profile_name }}" id="input-name" class="py-2" placeholder="Profile Name" autocomplete="off" readonly="true"/>
+                <p class="input-name-p"></p>
+                <button type="button" class="input-add-button input-name-button ">
+                    <i class="far fa-pen" style="font-size:20px;color:#51585C;" data-toggle="tooltip" title="Edit"></i>
+                </button>
+            </div>
+        </div>
+        <div class="px-3 py-2">
+            <div class="font-weight-bold mt-1" style="color: #00bfa5;"><label>About</label></div>
+            <div class="input-add">
+                <textarea name="name" id="input-about" class="py-2" placeholder="About" autocomplete="off" readonly="true" oninput="auto_grow(this)" rows="1">{{ user.useradd.about }}</textarea>
+                <p class="input-about-p"></p>
+                <button class="input-add-button input-about-button" type="button">
+                    <i class="far fa-pen" style="font-size:20px;color:#51585C;" data-toggle="tooltip" title="Edit"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Contact -->
+<div class="d-flex flex-column w-100 h-100" id="add-contact">
+    <div class="navbar row d-flex flex-row p-2" style="min-height: 110px">
+        <div class="nav-item">
+            <i class="far fa-arrow-left mx-4 my-1 text-white" style="font-size: 1.5rem; cursor: pointer" onclick="hideAddContact()"></i>
+        </div>
+
+        <div class="nav-item mr-auto">
+            <div class="text-white font-weight-bold" style="font-size: 1.3em">New Contacts</div>
+        </div>
+        <div class="nav-item ml-auto">
+            <!-- Add Contact Button trigger modal -->
+            <button type="button" class="btn mx-4 my-1" data-toggle="modal" data-target="#exampleModalCenter" style="background: transparent; font-size: 20px; margin-right: 10%">
+                <i class="far fa-comment-alt-lines text-white" data-toggle="tooltip" title="New Chat"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column" style="overflow: auto">
+        <div class="d-flex flex-column col-12">
+            <!-- Contact Search Bar -->
+            <div class="contact-search">
+                <span class="contact-search-item"><i class="fas fa-search"></i></span>
+                <input type="text" class="contact-search-field" placeholder="Search for contacts" id="new-contact-search-field" autocomplete="off" />
+            </div>
+            <div class="row" id="new-contact">
+                {% for thread in Threads %} {% for chat in thread.chatmessage.all %} {% empty %}
+                <div class="d-flex flex-row border-bottom w-100 p-2 contact-list-item" data-thread-id="{{ thread.id }}">
+                    {% if thread.first_person == user %}
+                    <img src="{{ thread.second_person.useradd.user_image.url }}" class="img-rounded rounded-circle mr-2" draggable="false" />
+                    {% else %}
+                    <img src="{{ thread.first_person.useradd.user_image.url }}" class="img-rounded rounded-circle mr-2" draggable="false" />
+                    {% endif %}
+                    <div class="w-50">
+                        {% if thread.first_person == user %}
+                        <div class="name">{{ thread.second_person.username }}</div>
+                        <div class="text-muted last-message"></div>
+                        {% else %}
+                        <div class="name">{{ thread.first_person.username }}</div>
+                        <div class="text-muted last-message"></div>
+                        {% endif %}
+                    </div>
+                    <div class="flex-grow-1 text-right">
+                        <div class="small time text-muted" id="time"></div>
+                        <div class="badge badge-success badge-pill small" id="unread-count"></div>
+                    </div>
+                </div>
+                {% endfor %} {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Settings -->
+<div class="d-flex flex-column w-100 h-100" id="settings">
+    <div class="navbar row d-flex flex-row p-2" style="min-height: 110px">
+        <div class="nav-item">
+            <i class="far fa-arrow-left mx-4 my-1 text-white" style="font-size: 1.5rem; cursor: pointer" onclick="hideSettings()"></i>
+        </div>
+
+        <div class="nav-item mr-auto">
+            <div class="text-white font-weight-bold" style="font-size: 1.3em">Settings</div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column" style="overflow: auto">Settings</div>
+</div>
+
+<!-- Add Contact Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="newuser">
+                <div class="modal-header mx-auto">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add new contact</h5>
+                </div>
+                <div class="modal-body">
+                    {% for message in messages %} {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endif %} {% endfor %}
+                    <div class="form-group">
+                        <label for="add-user" class="col-form-label">Username:</label>
+                        <input type="text" class="form-control" id="add-user" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="new-user">Add to contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

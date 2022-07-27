@@ -1,0 +1,45 @@
+{% extends 'chat/base.html' %} 
+{% load crispy_forms_tags %} 
+{% load static %} 
+{% block content %}
+<main class="main">
+    <div class="container">
+        <section class="wrapper">
+            <div class="heading my-3">
+                <h1 class="text text-large">Sign In</h1>
+            </div>
+            <form action="" method="POST" class="form">
+                {% csrf_token %} 
+                {% for message in messages %} 
+                    {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <a class="close" href="javascript:void(0)" data-dismiss="alert">×</a>
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-success">
+                        <a class="close" href="javascript:void(0)" data-dismiss="alert">×</a>
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endif %} 
+                {% endfor %}
+
+                <div class="input-control">{{ form.username|as_crispy_field }}</div>
+                <div class="input-control">{{ form.password|as_crispy_field }}</div>
+                <div class="input-control">
+                    <a href="javascript:void(0)" class="text text-links">Forgot Password</a>
+                    <button name="submit" class="btn btn-primary input-submit">Login</button>
+                </div>
+
+                <div class="striped">
+                    <span class="striped-line"></span>
+                    <span class="striped-line"></span>
+                </div>
+                <p class="text text-normal align-items-center">
+                    New user? <span><a href="/register" class="text text-links">Create an account</a></span>
+                </p>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock %}

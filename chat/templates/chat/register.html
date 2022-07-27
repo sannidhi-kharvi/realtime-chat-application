@@ -1,0 +1,43 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <div class="wrapper">
+        <div class="heading my-2">
+            <h1 class="text text-large">Sign Up</h1>
+        </div>
+        <form action="" method="POST" class="form">
+            {% csrf_token %}
+            <div>
+                {{ form|as_crispy_errors }}
+            </div>
+            <div class="input-control">
+                {{ form.username|as_crispy_field }}
+            </div>
+            <div class="input-control">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="input-control">
+                {{ form.password1|as_crispy_field }}
+            </div>
+            <div class="input-control">
+                {{ form.password2|as_crispy_field }}
+            </div>
+            <div class="input-control justify-content-end">
+                <button name="submit" class="btn btn-primary input-submit">Register</button>
+            </div>
+
+            <div class="striped">
+                <span class="striped-line"></span>
+                <span class="striped-line"></span>
+            </div>
+            <p class="text text-normal align-items-center">
+                Already have an Account? <span><a href="/login" class="text text-links">Sign In</a></span>
+            </p>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

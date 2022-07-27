@@ -1,0 +1,166 @@
+<div class="d-flex flex-column w-100 h-100 col-12 col-sm-5 col-md-4" id="contact-list-area">
+            
+    <!-- Contact List Navbar -->
+    <div class="navbar row d-flex flex-row p-2">
+        <img src="{{ user.useradd.user_image.url }}" class="img-rounded rounded-circle mr-2" id="user-img-small" style="cursor:pointer;" onclick="showUserProfile()" draggable="false">
+        {% if user.is_authenticated %}
+        <input type="hidden" value="{{ user.id }}" id="logged-in-user">
+        {% endif %}
+
+        <div class="nav-item ml-auto mr-3">
+            <button type="button" class="btn" style="background:transparent;font-size:20px;" onclick="showAddContact()">
+                <i class="far fa-comment-alt-lines text-white" data-toggle="tooltip" title="New Chat"></i>
+            </button>
+        </div>
+
+        <div class="nav-item dropdown mr-2">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)">
+                <i class="fas fa-ellipsis-v text-white" style="font-size:18px;" data-toggle="tooltip" title="Menu"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" style="margin-right:40%;margin-top:-10%;">
+                <a class="dropdown-item" href="javascript:void(0)" onclick="showUserProfile()">Profile</a>
+                <a class="dropdown-item" href="javascript:void(0)" onclick="showAddContact()">New Chat</a>
+                <a class="dropdown-item" href="javascript:void(0)" onclick="showSettings()">Settings</a>
+                <a class="dropdown-item" href="logout">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Search Bar -->
+    <div class="contact-search">
+        <span class="contact-search-item"><i class="fas fa-search"></i></span>
+        <input type="text" class="contact-search-field" placeholder="Search for contacts" autocomplete="off">
+    </div>
+    
+    <!-- Contact Lists -->
+    <div class="row" id="contact-list">
+        {% for thread in Threadlist %}
+        {% if thread.first_person == user or thread.second_person == user %}
+        
+        <div class="d-flex flex-row border-bottom w-100 p-2 contact-list-item {% if thread.user_id != user.id %}{% if thread.status == 1 %}unread{% endif %}{% endif %}" data-thread-id="{{ thread.thread_id }}"
+        {% if thread.first_person == user %}
+            data-other-user-id="{{ thread.second_person.id }}"
+        {% else %}
+            data-other-user-id="{{ thread.first_person.id }}"
+        {% endif %} data-chat-id="{{thread.id}}">
+        
+            {% if thread.first_person == user %}
+            <img src="{{ thread.second_person.useradd.user_image.url }}" class="img-rounded rounded-circle mr-2" draggable="false">
+            {% else %}
+            <img src="{{ thread.first_person.useradd.user_image.url }}" class="img-rounded rounded-circle mr-2" draggable="false">
+            {% endif %}
+            <div class="w-50">
+                {% if thread.first_person == user %}
+                    <div class="name">{{ thread.second_person.username }}</div>
+                    {% if thread.user_id == user.id %}
+                        {% if thread.message != "This message was deleted" %}
+                            {% if thread.status == 1 %}
+                                {% if thread.msg_image %}
+                                    {% if thread.message %}
+                                    <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i id="status-check" class="far fa-check mr-1"></i><i class="far fa-camera mr-1"></i>{{thread.message}}</div>
+                                    {% else %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i id="status-check" class="far fa-check mr-1"></i><i class="far fa-camera mr-1"></i>Photo</div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i id="status-check" class="far fa-check mr-1"></i>{{thread.message}}</div>
+                                {% endif %}
+                            {% else %}
+                                {% if thread.msg_image %}
+                                    {% if thread.message %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-check-double mr-1"></i><i class="far fa-camera mr-1"></i>{{thread.message}}</div>
+                                    {% else %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-check-double mr-1"></i><i class="far fa-camera mr-1"></i>Photo</div>
+                                    {% endif %}
+                                {% else %}
+                                <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-check-double mr-1"></i>{{thread.message}}</div>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"></i>{{thread.message}}</div>
+                        {% endif %}
+                    {% else %}
+                        {% if thread.msg_image %}
+                            {% if thread.message %}
+                                <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-camera mr-1"></i>{{thread.message}}</div>
+                            {% else %}
+                            <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-camera mr-1"></i>Photo</div>
+                            {% endif %}
+                        {% else %}
+                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"></i>{{thread.message}}</div>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <div class="name">{{ thread.first_person.username }}</div>
+                    {% if thread.user_id == user.id %}
+                        {% if thread.message != "This message was deleted" %}
+                            {% if thread.status == 1 %}
+                                {% if thread.msg_image %}
+                                    {% if thread.message %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i id="status-check" class="far fa-check mr-1"></i><i class="far fa-camera mr-1"></i>{{thread.message}}</div>
+                                    {% else %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i id="status-check" class="far fa-check mr-1"></i><i class="far fa-camera mr-1"></i>Photo</div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i id="status-check" class="far fa-check mr-1"></i>{{thread.message}}</div>
+                                {% endif %}
+                            {% else %}
+                                {% if thread.msg_image %}
+                                    {% if thread.message %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-check-double mr-1"></i><i class="far fa-camera mr-1"></i>{{thread.message}}</div>
+                                    {% else %}
+                                        <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-check-double mr-1"></i><i class="far fa-camera mr-1"></i>Photo</div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-check-double mr-1"></i>{{thread.message}}</div>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"></i>{{thread.message}}</div>
+                        {% endif %}
+                    {% else %}
+                        {% if thread.msg_image %}
+                            {% if thread.message %}
+                                <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-camera mr-1"></i>{{thread.message}}</div>
+                            {% else %}
+                                <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"><i class="far fa-camera mr-1"></i>Photo</div>
+                            {% endif %}
+                        {% else %}
+                            <div class="text-muted last-message" data-toggle="tooltip" title="{{thread.message}}"></i>{{thread.message}}</div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+            
+            <div class="flex-grow-1 text-right">
+                <div class="small msg-time text-muted" id="msg-time">{{thread.timestamp|time:"g:i A"|lower}}</div>
+                {% for unread in unread %}
+                    {% if thread.first_person == user %}
+                        {% if thread.user_id != user.id %}
+                            {% if thread.thread_id == unread.thread_id %}
+                            <div class="badge badge-success badge-pill small" id="unread-count">{{unread.unreadcount}}</div>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% if thread.user_id != user.id %}
+                        {% if thread.thread_id == unread.thread_id %}
+                            <div class="badge badge-success badge-pill small" id="unread-count">{{unread.unreadcount}}</div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% empty %}
+            <div class="alert alert-info">
+                <h3><strong>Contact list empty</strong></h3>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+    <!-- All Settings Area -->
+    {% include 'chat/settings.html' %}
+
+</div>
