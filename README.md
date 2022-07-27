@@ -14,7 +14,7 @@ Socket.IO<br/><br/>
 
 
 ```
-pip install -r requirements.txt
+git clone https://github.com/sannidhi-kharvi/realtime-chat-application.git
 ```
 <br/>
 
