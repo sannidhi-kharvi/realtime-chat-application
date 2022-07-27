@@ -11,22 +11,22 @@ Socket.IO<br/><br/>
 
 <h3>Steps to Install Application:</h3>
 1. Git Clone:
-```python
+```
 git clone https://github.com/sannidhi-kharvi/realtime-chat-application.git
 ```
 <br/><br/>
 2. Install project dependencies:
-```python
+```
 pip install -r requirements.txt
 ```
 <br/><br/>
 3. Then apply the migrations:
-```python
+```
 python manage.py migrate
 ```
 <br/><br/>
 4. You can now run the development server:
-```python
+```
 python manage.py runserver
 ```
 <br/><br/>
