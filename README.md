@@ -29,5 +29,8 @@ $ python manage.py migrate
 <br/><br/>
 
 4. You can now run the development server:
+
+```
 $ python manage.py runserver
+```
 
